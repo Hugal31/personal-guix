@@ -15,8 +15,8 @@ Convert the given PACKAGES.\n")
 (define %options
   ;; Specification of the command-line options.
   (list (option '(#\h "help") #f #f
-	    (lambda _
-	      (show-help)))))
+                (lambda _
+                  (show-help)))))
 
 (define (ros2guix-main args)
   (display args)

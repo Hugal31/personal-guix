@@ -45,19 +45,19 @@
     (build-system trivial-build-system)
     (arguments
      `(#:modules ((guix build utils))
-       #:builder (begin
-                   (use-modules (guix build utils))
-                   (let ((source (assoc-ref %build-inputs "source"))
-                         (fw-dir (string-append %output "/lib/firmware/radeon/")))
-                     (mkdir-p fw-dir)
-                     (for-each (lambda (file)
-                                 (copy-file file
-                                            (string-append fw-dir "/"
-                                                           (basename file))))
-                               (find-files source
-                                           (lambda (file stat)
-                                             (string-contains file "radeon"))))
-                     #t))))
+                 #:builder (begin
+                             (use-modules (guix build utils))
+                             (let ((source (assoc-ref %build-inputs "source"))
+                                   (fw-dir (string-append %output "/lib/firmware/radeon/")))
+                               (mkdir-p fw-dir)
+                               (for-each (lambda (file)
+                                           (copy-file file
+                                                      (string-append fw-dir "/"
+                                                                     (basename file))))
+                                         (find-files source
+                                                     (lambda (file stat)
+                                                       (string-contains file "radeon"))))
+                               #t))))
 
     (home-page "")
     (synopsis "Non-free firmware for Radeon integrated chips")
@@ -80,14 +80,14 @@
     (build-system trivial-build-system)
     (arguments
      `(#:modules ((guix build utils))
-       #:builder (begin
-                   (use-modules (guix build utils))
-                   (let ((source (assoc-ref %build-inputs "source"))
-                         (fw-dir (string-append %output "/lib/firmware/")))
-                     (mkdir-p fw-dir)
-                     (copy-recursively (string-append source "/ath10k")
-                                       (string-append fw-dir "/ath10k"))
-                     #t))))
+                 #:builder (begin
+                             (use-modules (guix build utils))
+                             (let ((source (assoc-ref %build-inputs "source"))
+                                   (fw-dir (string-append %output "/lib/firmware/")))
+                               (mkdir-p fw-dir)
+                               (copy-recursively (string-append source "/ath10k")
+                                                 (string-append fw-dir "/ath10k"))
+                               #t))))
 
     (home-page "")
     (synopsis "Non-free firmware for ath10k wireless chips")
@@ -110,13 +110,13 @@
     (build-system trivial-build-system)
     (arguments
      `(#:modules ((guix build utils))
-       #:builder (begin
-                   (use-modules (guix build utils))
-                   (let ((source (assoc-ref %build-inputs "source"))
-                         (fw-dir (string-append %output "/lib/firmware/")))
-                     (mkdir-p fw-dir)
-                     (copy-recursively source fw-dir)
-                     #t))))
+                 #:builder (begin
+                             (use-modules (guix build utils))
+                             (let ((source (assoc-ref %build-inputs "source"))
+                                   (fw-dir (string-append %output "/lib/firmware/")))
+                               (mkdir-p fw-dir)
+                               (copy-recursively source fw-dir)
+                               #t))))
 
     (home-page "")
     (synopsis "Non-free firmware for Linux")
@@ -147,17 +147,17 @@
     (build-system trivial-build-system)
     (arguments
      `(#:modules ((guix build utils))
-       #:builder (begin
-                   (use-modules (guix build utils))
-                   (let ((source (assoc-ref %build-inputs "source"))
-                         (fw-dir (string-append %output "/lib/firmware")))
-                     (mkdir-p fw-dir)
-                     (for-each (lambda (file)
-                                 (copy-file file
-                                            (string-append fw-dir "/"
-                                                           (basename file))))
-                               (find-files source "iwlwifi-.*\\.ucode$|LICENCE\\.iwlwifi_firmware$"))
-                     #t))))
+                 #:builder (begin
+                             (use-modules (guix build utils))
+                             (let ((source (assoc-ref %build-inputs "source"))
+                                   (fw-dir (string-append %output "/lib/firmware")))
+                               (mkdir-p fw-dir)
+                               (for-each (lambda (file)
+                                           (copy-file file
+                                                      (string-append fw-dir "/"
+                                                                     (basename file))))
+                                         (find-files source "iwlwifi-.*\\.ucode$|LICENCE\\.iwlwifi_firmware$"))
+                               #t))))
 
     (home-page "https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi")
     (synopsis "Non-free firmware for Intel wifi chips")
@@ -180,17 +180,17 @@
     (build-system trivial-build-system)
     (arguments
      `(#:modules ((guix build utils))
-       #:builder (begin
-                   (use-modules (guix build utils))
-                   (let ((source (assoc-ref %build-inputs "source"))
-                         (fw-dir (string-append %output "/lib/firmware/intel")))
-                     (mkdir-p fw-dir)
-                     (for-each (lambda (file)
-                                 (copy-file file
-                                            (string-append fw-dir "/"
-                                                           (basename file))))
-                               (find-files source "ibt-hw-.*\\.bseq$|LICENCE\\.ibt_firmware$"))
-                     #t))))
+                 #:builder (begin
+                             (use-modules (guix build utils))
+                             (let ((source (assoc-ref %build-inputs "source"))
+                                   (fw-dir (string-append %output "/lib/firmware/intel")))
+                               (mkdir-p fw-dir)
+                               (for-each (lambda (file)
+                                           (copy-file file
+                                                      (string-append fw-dir "/"
+                                                                     (basename file))))
+                                         (find-files source "ibt-hw-.*\\.bseq$|LICENCE\\.ibt_firmware$"))
+                               #t))))
 
     (home-page "http://www.intel.com/support/wireless/wlan/sb/CS-016675.htm")
     (synopsis "Non-free firmware for Intel bluetooth chips")

@@ -15,9 +15,9 @@
 
 ;; TODO Make this more generic
 (define* (url-fetch/nvidia-auto-decompressor url hash-algo hash
-                            #:optional name
-                            #:key (system (%current-system))
-                            (guile (default-guile)))
+                                             #:optional name
+                                             #:key (system (%current-system))
+                                             (guile (default-guile)))
   "Similar to 'url-fetch' but unpack the file from URL in a directory of its
 own by executing it"
   (define file-name
@@ -28,17 +28,17 @@ own by executing it"
        (basename url))))
 
   (mlet %store-monad ((drv (url-fetch url hash-algo hash
-				      (string-append "decompressor-" (or name file-name))
-				      #:system system
-				      #:guile guile))
-		      (guile (package->derivation guile system)))
+                                      (string-append "decompressor-" (or name file-name))
+                                      #:system system
+                                      #:guile guile))
+                      (guile (package->derivation guile system)))
     ;; Take the auto-decompressor and execute it
     (with-imported-modules '((guix build utils))
       (gexp->derivation (or name file-name)
                         #~(begin
                             (use-modules (guix build utils))
-                            ;(mkdir #$output)
-                            ;(chdir #$output)
+                                        ;(mkdir #$output)
+                                        ;(chdir #$output)
                             ;; I am not sure this is a good method
                             (for-each
                              (lambda (package)
