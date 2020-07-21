@@ -9,28 +9,27 @@
   #:use-module (guix records)
   #:use-module (ice-9 match)
   #:use-module (hugal31 packages nvidia)
-  #:export (nvidia-insmod-service-type))
+  #:export (nvidia-insmod-configuration
+            nvidia-insmod-service-type))
 
 (define-configuration nvidia-insmod-configuration
   (package
     (package nvidia-driver-nonfree)
     "The nvidia-driver package to use."))
 
-(define (nvidia-insmod-shepherd-service configs)
-  (map (match-lambda
-         (($ <nvidia-insmod-configuration> package)
-          (shepherd-service
-           (provision '(nvidia-insmod))
-           (requirement '())
-           ;; run the nvidia-insmod script
-           (start #~(lambda _
-                      ;; TODO What does the "and" is used for?
-                      (and
-                       (zero? (system* #$(string-append package "/bin/nvidia-insmod"))))))
-           (one-shot? #t)
-           (auto-start? #t)
-           (respawn? #f))))
-       configs))
+(define (nvidia-insmod-shepherd-service config)
+  (list (match config
+          (($ <nvidia-insmod-configuration> location package)
+           (shepherd-service
+            (provision '(nvidia-insmod))
+            (requirement '())
+            ;; run the nvidia-insmod script
+            (start #~(lambda _
+                       ;; TODO What does the "and" is used for?
+                       (zero? (system* (string-append #$package "/bin/nvidia-insmod")))))
+            (one-shot? #t)
+            (auto-start? #t)
+            (respawn? #f))))))
 
 (define nvidia-insmod-service-type
   (service-type
@@ -39,7 +38,7 @@
     (list (service-extension shepherd-root-service-type
                              nvidia-insmod-shepherd-service)))
 
-   (default-value '())
+   (default-value (nvidia-insmod-configuration))
    ;; TODO What?
    ;; (compose concatenate)
    ;; (extend append)

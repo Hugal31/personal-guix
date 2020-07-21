@@ -56,7 +56,8 @@
        (file-name (string-append "nvidia-driver-" version "-checkout"))))
     (build-system linux-module-build-system)
     (arguments
-     `(#:phases
+     `(#:linux ,kernel
+       #:phases
        (modify-phases %standard-phases
          (replace 'build
            (lambda*  (#:key inputs outputs #:allow-other-keys)
